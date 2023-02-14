@@ -7,4 +7,6 @@ Yiming Liu 21213259
 Chenwei Xie 22200707
 
 
-XPath
+XPath + selenium = web srawler
+
+
