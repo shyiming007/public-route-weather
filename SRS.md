@@ -11,5 +11,7 @@
 4. Communications interfaces
 
 5. Functional requirements
-6. Performance requirements
+5.1 
+Display occupancy and weather information
+7. Performance requirements
 
