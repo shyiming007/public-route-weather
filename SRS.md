@@ -27,5 +27,5 @@
 
 
 Display occupancy and weather information
-# 7. Performance requirements
+# 6. Performance requirements
 
