@@ -1,0 +1,36 @@
+
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    
+  }
+
+.navbar a {
+    color: black;
+    padding: 0 10px;
+    text-decoration: none;
+  }
+
+body h1{
+    text-align: center;
+    padding: 80px 0;
+}
+body p{
+    text-align: center;
+}
+
+.settings {
+    display:flex;
+    padding: 280px 0;
+    justify-content: center;
+  }
+
+.settings button{
+    background-color: white;
+    font-size: larger;
+    color: black;
+    padding: 10px 50px;
+    margin: 20px;
+    border: none;
+}
