@@ -20,8 +20,9 @@ body p{
     text-align: center;
 }
 
+
 .login {
-    display:flex;
+    display:inline-flex;
     padding: 280px 0;
     justify-content: center;
   }
