@@ -2,18 +2,16 @@ Date: 9.3.2023
 
 General:
 
-1. Show the github's information we have created.
+1. Ask questions about the user account
 
-2. Tasks' assignment for every members
-
-3. Show one requirement we discussed in the SRS
+2. Capture weather data
 
 Technical:
-1. import mysql error
-2. set API's key or not
-3. select specific features for data
+1. real-time information and history information
+2. data machine and model
+3. order of setting
 
 
 Conclusion:
-1. We should make notes for each meeting
-2. We should know how to synchronize weather and occupancy information
+1. We should do flask part and then do the front part
+2. We should know how to use weather information
