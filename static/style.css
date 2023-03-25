@@ -1,0 +1,12 @@
+/* Set the size of the div
+element that contains the map
+*/
+#map {
+    height: 100%;
+    width: 100%;
+    }
+    html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    }
