@@ -40,5 +40,18 @@ def station(station_id):
 # show the station with the given id, the id is an integer
     return f'Retrieving info for Station: {station_id}'
 
+
+
+@app.route("/stations")
+def get_stations():
+    engine = get_db()
+    sql = "select * from station;"
+    rows = engine.execute(sql).fetchall()
+    print('#found {} stations', len(rows))
+    return jsonify(...
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
