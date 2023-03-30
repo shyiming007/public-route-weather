@@ -2,24 +2,19 @@ Date: 30.3.2023
 
 General:
 
-1. Share the data information and database we have created.
+1. flask 
 
-2. Discuss the plan of front end and back end.
+2. show the map
 
-3. Create two different workspaces in trello and discuss how to use trello efficiently.
+3. show the station information
 
 Technical:
-1. how to use pycharm to get real-time information
-2. set aws EC2 instance account
-3. End the running in pycharm
+1. how to connect to the database
+
 
 
 Conclusion:
-1. We have got real-time station information
-2. We have not got real-time weather information
-3. We should know how to synchronize weather and occupancy information
-
-
-1.不需要在意数据准确度
-2.添加自己link的feature（区分）
-3.连接数据库
+we should
+1. Don't need to care too much about the accuracy of the data model
+2. Add your own feature (distinguish)
+3. Connect to the database
