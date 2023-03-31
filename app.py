@@ -80,7 +80,7 @@ def station(station_id):
 @functools.lru_cache(maxsize=128)
 def get_stations():
     engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
-    sql = "select * from station ;"
+    sql = "SELECT * FROM station LIMIT 100;"
     try:
         with engine.connect() as conn:
             rows = conn.execute(text(sql)).fetchall()
