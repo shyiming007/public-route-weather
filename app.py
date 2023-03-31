@@ -1,5 +1,31 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import config
+import requests
+import json
+from datetime import datetime
+import time
+import traceback
+import sqlalchemy as sqla
+from sqlalchemy import create_engine, DateTime, text
+import functools
+
+# Database connection
+URI = "dbbikes.ci3iggfwlke6.eu-west-1.rds.amazonaws.com"
+PORT = "3306"
+DB = "dbbikes"
+USER = "admin"
+PASSWORD = "00000000"
+
+# API key and URL
+APIKEY = "43320d58946b9083c60d5f540941c6249d9884a4"
+NAME = "dublin"
+URL = "https://api.jcdecaux.com/vls/v1/stations"
+
+# engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
+
+
+
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -42,13 +68,27 @@ def station(station_id):
 
 
 
+# @app.route("/stations")
+# def get_stations():
+#     engine = get_db()
+#     sql = "select * from station;"
+#     rows = engine.execute(sql).fetchall()
+#     print('#found {} stations', len(rows))
+#     return jsonify(...
+
 @app.route("/stations")
+@functools.lru_cache(maxsize=128)
 def get_stations():
-    engine = get_db()
-    sql = "select * from station;"
-    rows = engine.execute(sql).fetchall()
-    print('#found {} stations', len(rows))
-    return jsonify(...
+    engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
+    sql = "select * from station ;"
+    try:
+        with engine.connect() as conn:
+            rows = conn.execute(text(sql)).fetchall()
+            print('#found {} stations', len(rows), rows)
+            return jsonify([row._asdict() for row in rows]) # use this formula to turn the rows into a list of dicts
+    except:
+        print(traceback.format_exc())
+        return "error in get_stations", 404
 
 
 
