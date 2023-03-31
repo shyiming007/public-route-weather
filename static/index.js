@@ -1,7 +1,4 @@
 
-
-
-
 function addMarkers(stations) {
     stations.forEach(station => {
         var marker = new google.maps.Marker({
