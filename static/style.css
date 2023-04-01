@@ -10,3 +10,11 @@ element that contains the map
     margin: 0;
     padding: 0;
     }
+
+#content h1 {
+    color: purple;
+    }
+
+#station_availability ul {
+    color: orange;
+    }
