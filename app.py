@@ -93,7 +93,18 @@ def get_occupancy(station_id):
         print(res)
         
         return jsonify(data=json.dumps(list(zip(map(lambda x: x.isoformat(), res.index), res.values))))
-    
+
+# Added route to get the latest weather data
+@app.route('/weather')
+def get_weather():
+    engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
+    with engine.connect() as conn:
+        sql = "SELECT * FROM weather ORDER BY timestamp DESC LIMIT 1;"
+        row = conn.execute(text(sql)).fetchone()
+        if row:
+            return jsonify(row._asdict())
+        else:
+            return "No weather data available", 404
 
 if __name__ == "__main__":
     app.run(debug=True)
