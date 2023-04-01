@@ -69,7 +69,7 @@ def station(station_id):
 def get_stations():
     engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
     
-    sql = "SELECT * FROM station LIMIT 100;"
+    sql = "SELECT * FROM station LIMIT 1000;"
     try:
         with engine.connect() as conn:
             rows = conn.execute(text(sql)).fetchall()
