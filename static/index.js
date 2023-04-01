@@ -10,8 +10,41 @@ function addMarkers(stations) {
             title: station.name,
             station_number: station.number,
         });
-    });
+        google.maps.event.addListener(marker, 'click', function() {
+            var contentString = '<div id="content"><h1>' + station.name + '</h1></div>' + '<div id="station_availability"></div>';
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            infowindow.open(map, marker);
+        });
+    //     // var contentString = '<div id="content"><h1>' + station.name + '</h1></div>'
+    //     //                 + '<div id="station_availability"></div>';
+    //                     google.maps.event.addListener(marker, 'click', function() {
+    //                     drawInfoWindowChart(this);
+    // });
+});
 }
+// function addMarkers(stations) {
+//     _.forEach(stations, function(station) {
+//       var marker = new google.maps.Marker({
+//         position: {
+//           lat: station.position_lat,
+//           lng: station.position_lng
+//         },
+//         map: map,
+//         title: station.name,
+//         station_number: station.number,
+//       });
+//       var contentString =
+//         '<div id="content"><h1>' +
+//         station.name +
+//         '</h1></div>' +
+//         '<div id="station_availability"></div>';
+//       google.maps.event.addListener(marker, 'click', function() {
+//         drawInfoWindowChart(this);
+//       });
+//     });
+//   }
 
 
 
@@ -42,7 +75,18 @@ function initMap() {
     // map: map,
     // });
     getStations();
+    
 }
+
+// function drawInfoWindowChart(marker) {
+//     var contentString = '<div id="content"><h1>' + station.name + '</h1></div>'
+//                         + '<div id="station_availability"></div>';
+//     var infowindow = new google.maps.InfoWindow({
+//     content: contentString});
+//     infowindow.open(map, marker);
+// }
+
+
 
 var map = null;
 window.initMap = initMap;
