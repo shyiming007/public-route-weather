@@ -176,7 +176,7 @@ function getStations(){
 //     }
 //     }
     
-
+let currentPosition;
 // Initialize and add the map
 function initMap() {
     const dublin = { lat: 53.350140, lng: -6.266155 };
@@ -192,7 +192,41 @@ function initMap() {
     // });
     // getOccupancy();
     getStations();
-    
+
+    navigator.geolocation.getCurrentPosition(function(position){
+        currentPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+        }
+        
+        map.setCenter(currentPosition);
+        map.setZoom(13);
+        const autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById('search_des'),
+            {
+            types: ['restaurant'],
+            bounds:{
+                east: currentPosition.lng + 0.001,
+                west: currentPosition.lng - 0.001,
+                south: currentPosition.lat - 0.001,
+                north: currentPosition.lat + 0.001,
+            
+            },
+            strictBounds: false,
+
+            }
+        )
+        // const place = autocomplete.getPlace();
+
+        // selectedPlace = {
+        //     // location: place.geometry.location,
+        //     // name: place.name,
+        //     address: place.formatted_address,
+        // };
+
+        // console.log(selectedPlace);
+    });
+
 }
 
 
