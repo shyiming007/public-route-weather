@@ -18,12 +18,25 @@
 
 </head>
 <body>
+    
 <div id="map"></div>
+<div id="search">
+    <h1>Welcome to Dublin Bike Search!</h1>
+    <p>This is the Home page</p>
+    <img src="https://api.cyclocity.fr/contracts/dublin/newsimages/045a30d2-1eca-4aa1-a815-a6bf94340a22" alt="homeimage" style="width:500px;height:300px;">
+    <div class="login"><button class="button">Sign Up</button>
+    <button class="button">Log In</button>
+
+        <input id="search_des">
+
+</div>
+</div>
+
 <!--
 The `defer` attribute causes the callback to execute after the full HTML
 document has been parsed.-->
 <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUKrfyRGhJ_UoLWPm9g7D6AFmloZQOXsw&callback=initMap&v=weekly"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUKrfyRGhJ_UoLWPm9g7D6AFmloZQOXsw&libraries=places&callback=initMap&v=weekly"
     defer
 ></script>
 <!-- <input type="checkbox" id="heatmap-checkbox" onclick="drawHeatmap($(this))"> -->
