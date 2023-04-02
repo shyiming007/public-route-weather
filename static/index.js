@@ -177,6 +177,11 @@ function getStations(){
 //     }
     
 let currentPosition;
+let selectedPlace;
+let marker_des;
+let directionsService;
+let directionsRenderer;
+let info_des;
 // Initialize and add the map
 function initMap() {
     const dublin = { lat: 53.350140, lng: -6.266155 };
@@ -216,17 +221,79 @@ function initMap() {
 
             }
         )
-        // const place = autocomplete.getPlace();
+        autocomplete.addListener('place_changed', function(){
+        const place = autocomplete.getPlace();
 
-        // selectedPlace = {
-        //     // location: place.geometry.location,
-        //     // name: place.name,
-        //     address: place.formatted_address,
-        // };
+        selectedPlace = {
+            location: place.geometry.location,
+            name: place.name,
+            address: place.formatted_address,
+            placeId: place.place_id,
+        };
 
-        // console.log(selectedPlace);
+        map.setCenter(selectedPlace.location);
+
+        if (!marker_des){
+            marker_des = new google.maps.Marker({
+                map: map,
+            });
+        }
+        // Create a blue icon for the marker
+        var blueIcon = {
+            url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                };
+  
+        // Set the icon of the marker to the blue icon
+        marker_des.setIcon(blueIcon);
+        marker_des.setPosition(selectedPlace.location);
+        
+        console.log(selectedPlace)
+        if (!directionsService){
+            directionsService = new google.maps.DirectionsService();
+        }
+
+        if (!directionsRenderer){
+            directionsRenderer = new google.maps.DirectionsRenderer({
+            map:map,
+        });
+        }
+
+        directionsRenderer.set('directions',null)
+    
+        directionsService.route({
+            origin:new google.maps.LatLng(
+                currentPosition.lat,
+                currentPosition.lng
+            ),
+            destination:{
+                placeId: selectedPlace.placeId,
+            },
+            travelMode: 'BICYCLING',
+        },
+        function(response, status){
+            if (status == 'OK'){
+                directionsRenderer.setDirections(response);
+
+                if(!info_des){
+                    info_des = new google.maps.InfoWindow();
+
+                }
+                info_des.setContent(
+                    `
+                    <h3>${selectedPlace.name}</h3>
+                    <div>Address: ${selectedPlace.address}</div>
+                    <div>Location: ${selectedPlace.location}</div>
+                    <div>Ride time: ${response.routes[0].legs[0].duration.text}</div>
+                    `
+                );
+                info_des.open(map,marker_des)
+            }
+        }
+        );
+
     });
 
+});
 }
 
 
