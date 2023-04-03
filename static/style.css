@@ -22,7 +22,7 @@ element that contains the map
 
 #search
     {
-    height: 100vh;
+    height: 100%;
     width: 30%;
     float: right;
     background-color: darkorange;
@@ -48,17 +48,23 @@ element that contains the map
     }
     
     
-    .login {
+    .searchRealtime {
         display:flex;
         
         justify-content: center;
       }
     
-    .login button{
+    .searchRealtime h4{
         background-color: white;
         font-size: larger;
         color: black;
         padding: 10px 50px;
-        margin: 20px;
+        margin: 10px;
         border: none;
     }
+
+    input#search_des {
+        margin-top: 8px;
+        height: 50px; 
+        width: 300px;
+      }
