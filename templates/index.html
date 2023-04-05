@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
     <!-- <script src="/static/heatmap.js"></script> -->
-
+    
     <!-- <script type="module" src="{{ url_for('static', filename='app.js') }}"></script> -->
 
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
@@ -26,17 +26,23 @@
     
 <div id="map"></div>
 <div id="search">
+    <button class="btn1">Real-time</button>
+    <button class="btn2">Prediction</button>
+    
+    <div class="search_real_time show">
     <h1>Real-time Bike Station Search</h1>
     
-    <img src="https://api.cyclocity.fr/contracts/dublin/newsimages/045a30d2-1eca-4aa1-a815-a6bf94340a22" alt="homeimage" style="width:431px;height:300px;">
+    <img src="https://api.cyclocity.fr/contracts/dublin/newsimages/045a30d2-1eca-4aa1-a815-a6bf94340a22" alt="homeimage" style="width:500px;height:280px;margin:30px;">
     <p>Type your destination</p>
     <div class="searchRealtime">
         <!-- <h4>Starting location</h4> -->
     <h4>Destination</h4>
 
         <input id="search_des">
-
+    </div>
 </div>
+    <div class="search_prediction"><h1>Prediction Bike Station Search</h1></div>
+
 </div>
 
 <!--
