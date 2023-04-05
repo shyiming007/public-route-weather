@@ -37,7 +37,7 @@ function addMarkers(stations) {
             station_number: station.number,
             total_bike_stands: station.bike_stands,
             station_status: station.status,
-            firstValue: station.avaiable_bikes,
+            avaiable_bike: station.avaiable_bikes,
             avaiable_bike_stand: station.avaiable_bike_stands,
             
         });
@@ -57,12 +57,15 @@ function addMarkers(stations) {
             '<li>' + 'Station Number: ' + station.number + '</li>' +
             '<li>' + 'Total Bike Stands: ' + station.bike_stands + '</li>' +
             '<li>' + 'Station Status: ' + station_sta + '</li>' +
-            '<li>' + 'Avaiable Bikes: ' + station.avaiable_bikes + '</li>' +
-            '<li>' + 'Avaiable Bike Stands: ' + station.avaiable_bike_stands + '</li>' +
+            '<li>' + 'Available Bikes: ' + station.available_bikes + '</li>' +
+            '<li>' + 'Available Bike Stands: ' + station.available_bike_stands + '</li>' +
             
             
             // '<li>' + dateInfo + '</li>' +
             '</ul></div>';
+
+
+
             // // var jqxhr = $.getJSON($SCRIPT_ROOT + "/occupancy/" + marker.station_number, function(data) {
             //     data = JSON.parse(data.data);
             //     console.log('data', data);
@@ -97,37 +100,12 @@ function addMarkers(stations) {
 
 
     
-//     var infowindow = new google.maps.InfoWindow({
-//         content: contentString
-    
-//     });
-    
 //     infowindow.open(map, occupancy);
 // });
     
 // });
 // }
-// function addMarkers(stations) {
-//     _.forEach(stations, function(station) {
-//       var marker = new google.maps.Marker({
-//         position: {
-//           lat: station.position_lat,
-//           lng: station.position_lng
-//         },
-//         map: map,
-//         title: station.name,
-//         station_number: station.number,
-//       });
-//       var contentString =
-//         '<div id="content"><h1>' +
-//         station.name +
-//         '</h1></div>' +
-//         '<div id="station_availability"></div>';
-//       google.maps.event.addListener(marker, 'click', function() {
-//         drawInfoWindowChart(this);
-//       });
-//     });
-//   }
+
 
 function getStations(){
     fetch("/stations")
