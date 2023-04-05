@@ -11,7 +11,7 @@ element that contains the map
     margin: 0;
     padding: 0;
     }
-
+    
 #content h1 {
     color: purple;
     }
@@ -27,6 +27,29 @@ element that contains the map
     float: right;
     background-color: darkorange;
     }
+
+
+    button {
+        margin-top: 10px;
+        height: 50px; 
+        width: 285px;
+        
+      }
+
+    h1 {
+        margin: 0px;
+        
+
+    }
+
+
+    .search_real_time, .search_prediction {
+        display: none;
+      }
+  
+    .show {
+        display: block;
+      }
     .navbar {
         display: flex;
         justify-content: center;
