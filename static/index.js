@@ -24,6 +24,21 @@
 //         callback(occupancy);
 //     });
 // }
+    var btn1 = document.querySelector('.btn1');
+    var btn2 = document.querySelector('.btn2');
+    var realTimeDiv = document.querySelector('.search_real_time');
+    var predictionDiv = document.querySelector('.search_prediction');
+
+    btn1.addEventListener('click', function() {
+      realTimeDiv.classList.add('show');
+      predictionDiv.classList.remove('show');
+    });
+
+    btn2.addEventListener('click', function() {
+      predictionDiv.classList.add('show');
+      realTimeDiv.classList.remove('show');
+    });
+
 function addMarkers(stations) {
     stations.forEach(station => {
         
