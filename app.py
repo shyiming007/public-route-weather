@@ -69,7 +69,7 @@ def station(station_id):
 def get_stations():
     engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
     
-    sql = "SELECT * FROM station LIMIT 1000;"
+    sql = "SELECT * FROM real_time ORDER BY timestamp DESC LIMIT 100000;"
     try:
         with engine.connect() as conn:
             rows = conn.execute(text(sql)).fetchall()
@@ -86,14 +86,14 @@ def get_occupancy(station_id):
     with engine.connect() as conn:
         query = text("""select * from availability where number = :number""")
         df = pd.read_sql_query(query, conn, params={"number":station_id})
-        df['last_update_date'] = pd.to_datetime(df.last_update, unit='ms')
+        df['last_update_date'] = pd.to_datetime(df.last_update, unit='s')
         df.set_index('last_update_date', inplace=True)
         res = df['available_bike_stands'].resample('1d').mean()
         #res['dt'] = df.index
         print(res)
         
         return jsonify(data=json.dumps(list(zip(map(lambda x: x.isoformat(), res.index), res.values))))
-
+        
 # Added route to get the latest weather data
 @app.route('/weather')
 def get_weather():
