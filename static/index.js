@@ -119,13 +119,6 @@ function addMarkers(stations) {
 }
 
 
-    
-//     infowindow.open(map, occupancy);
-// });
-    
-// });
-// }
-
 
 function getStations(){
     fetch("/stations")
@@ -182,7 +175,7 @@ function initMap() {
         const autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('search_des'),
             {
-            types: ['restaurant'],
+            types: ['address','establishment','geocode'],
             bounds:{
                 east: currentPosition.lng + 0.001,
                 west: currentPosition.lng - 0.001,
