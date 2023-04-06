@@ -175,7 +175,7 @@ function initMap() {
         const autocomplete = new google.maps.places.Autocomplete(
             document.getElementById('search_des'),
             {
-            types: ['address','establishment','geocode'],
+            
             bounds:{
                 east: currentPosition.lng + 0.001,
                 west: currentPosition.lng - 0.001,
