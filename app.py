@@ -69,7 +69,7 @@ def station(station_id):
 def get_stations():
     engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
     
-    sql = "SELECT * FROM real_time ORDER BY timestamp DESC LIMIT 100000;"
+    sql = "SELECT * FROM real_time ORDER BY timestamp DESC;"
     try:
         with engine.connect() as conn:
             rows = conn.execute(text(sql)).fetchall()
