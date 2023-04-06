@@ -102,13 +102,18 @@ function addMarkers(stations) {
                 // }).fail(function() {
                 // console.log( "error" );
                 // })
-            
+            // var currentInfoWindow;
+
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
             
             });
-            
+            // if (currentInfoWindow) {
+            //     currentInfoWindow.close();
+            //         }
             infowindow.open(map, marker);
+            // currentInfoWindow = infowindow;
+            
         });
     });
 }
