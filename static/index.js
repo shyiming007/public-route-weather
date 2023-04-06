@@ -38,6 +38,19 @@
       predictionDiv.classList.add('show');
       realTimeDiv.classList.remove('show');
     });
+    
+    
+function addWeather(data) {
+        
+        var weather_html = 'Real-time Weather: ' + data[0].weather_main;
+        
+        var container = document.getElementById('weather-container');
+        container.innerHTML = weather_html;
+      
+      }
+
+
+
 
 function addMarkers(stations) {
     stations.forEach(station => {
@@ -126,7 +139,7 @@ function getStations(){
     .then((data) => {
         console.log("fetch response", typeof data);
         addMarkers(data);
-    
+        addWeather(data);
     });
 }
 
@@ -261,7 +274,7 @@ function initMap() {
         );
 
     });
-    
+
 });
 }
 
