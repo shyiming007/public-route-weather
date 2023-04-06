@@ -189,14 +189,14 @@ function initMap() {
         )
         autocomplete.addListener('place_changed', function(){
         const place = autocomplete.getPlace();
-
+        
         selectedPlace = {
             location: place.geometry.location,
             name: place.name,
             address: place.formatted_address,
             placeId: place.place_id,
         };
-
+        
         map.setCenter(selectedPlace.location);
 
         if (!marker_des){
@@ -261,7 +261,7 @@ function initMap() {
         );
 
     });
-
+    
 });
 }
 
