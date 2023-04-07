@@ -27,7 +27,7 @@ engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{
 # Create database tables
 metadata = sqla.MetaData()
 
-real_time = sqla.Table("real_time", metadata,
+completedata = sqla.Table("completedata", metadata,
     sqla.Column('address', sqla.String(256), nullable=False),
     sqla.Column('banking', sqla.Integer),
     sqla.Column('bike_stands', sqla.Integer),
@@ -67,7 +67,7 @@ real_time = sqla.Table("real_time", metadata,
 )
 
 try:
-    real_time.drop(engine)
+    completedata.drop(engine)
 except:
     pass
 
@@ -84,6 +84,7 @@ def get_weather_data():
     response = requests.get(URL_WEATHER, params=params)
     weather_data = json.loads(response.text)
     return weather_data
+
 
 def merge_data(station, weather):
     merged = station.copy()
@@ -111,6 +112,7 @@ def merge_data(station, weather):
 
     return merged
 
+
 def write_data_to_db():
     while True:
         try:
@@ -121,28 +123,28 @@ def write_data_to_db():
             # Get weather data
             weather_data = get_weather_data()
 
-            real_time_data = []
+            data_to_insert = []
             for item in data:
                 station_item = station_fix_keys(item)
                 station_item["timestamp"] = now
 
                 # Merge weather data with station data
                 merged_data = merge_data(station_item, weather_data)
-                real_time_data.append(merged_data)
+                data_to_insert.append(merged_data)
 
             # Create a connection and execute the queries
             with engine.connect() as connection:
-                # Delete all rows in the table
-                connection.execute(real_time.delete())
-
-                # Insert new data
-                connection.execute(real_time.insert(), real_time_data)
+                for record in data_to_insert:
+                    # Insert new data
+                    connection.execute(completedata.insert(), record)
 
             print(f"Inserted data at {now}")
-            time.sleep(60*5)
+            time.sleep(20)
         except Exception as e:
             print(f"Error: {e}")
             print(traceback.format_exc())
 
+
 if __name__ == '__main__':
     write_data_to_db()
+
