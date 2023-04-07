@@ -139,7 +139,7 @@ def write_data_to_db():
                     connection.execute(completedata.insert(), record)
 
             print(f"Inserted data at {now}")
-            time.sleep(20)
+            time.sleep(300)
         except Exception as e:
             print(f"Error: {e}")
             print(traceback.format_exc())
