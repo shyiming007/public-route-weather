@@ -161,6 +161,7 @@ let marker_des;
 let directionsService;
 let directionsRenderer;
 let info_des;
+let place_start;
 // Initialize and add the map
 function initMap() {
     const dublin = { lat: 53.350140, lng: -6.266155 };
@@ -226,7 +227,7 @@ function initMap() {
         // marker_des.setIcon(yellowIcon);
         marker_des.setPosition(selectedPlace.location);
         
-        console.log(selectedPlace)
+        
         if (!directionsService){
             directionsService = new google.maps.DirectionsService();
         }
@@ -276,6 +277,112 @@ function initMap() {
     });
 
 });
+
+
+navigator.geolocation.getCurrentPosition(function(position) {
+    map.setCenter(dublin);
+    map.setZoom(13);
+    const autocomplete_start = new google.maps.places.Autocomplete(
+        document.getElementById('search_start'), {
+            bounds: {
+                east: dublin.lng + 0.001,
+                west: dublin.lng - 0.001,
+                south: dublin.lat - 0.001,
+                north: dublin.lat + 0.001,
+            },
+            strictBounds: false,
+        }
+    );
+    autocomplete_start.addListener('place_changed', function() {
+        place_start = autocomplete_start.getPlace();
+        
+});
+
+    const autocomplete_des = new google.maps.places.Autocomplete(
+        document.getElementById('search_des_pre'), {
+            bounds: {
+                east: dublin.lng + 0.001,
+                west: dublin.lng - 0.001,
+                south: dublin.lat - 0.001,
+                north: dublin.lat + 0.001,
+            },
+            strictBounds: false,
+        }
+        
+    );
+
+
+        autocomplete_des.addListener('place_changed', function() {
+            const place_des = autocomplete_des.getPlace();
+
+            selectedPlace = {
+                location: place_des.geometry.location,
+                name: place_des.name,
+                address: place_des.formatted_address,
+                placeId: place_des.place_id,
+            };
+
+            map.setCenter(selectedPlace.location);
+
+            if (!marker_des) {
+                marker_des = new google.maps.Marker({
+                    map: map,
+                });
+            }
+
+            marker_des.setPosition(selectedPlace.location);
+
+            if (!directionsService) {
+                directionsService = new google.maps.DirectionsService();
+            }
+
+            if (!directionsRenderer) {
+                directionsRenderer = new google.maps.DirectionsRenderer({
+                    map: map,
+                    polylineOptions: {
+                        strokeColor: '#800080'
+                    }
+                });
+            }
+
+            directionsRenderer.set('directions', null)
+
+            directionsService.route({
+                    origin: new google.maps.LatLng(
+                        place_start.geometry.location.lat(),
+                        place_start.geometry.location.lng()
+                    ),
+                    destination: {
+                        placeId: selectedPlace.placeId,
+                    },
+                    travelMode: 'BICYCLING',
+                },
+                function(response, status) {
+                    if (status == 'OK') {
+                        directionsRenderer.setDirections(response);
+
+                        if (!info_des) {
+                            info_des = new google.maps.InfoWindow();
+
+                        }
+                        info_des.setContent(
+                            `
+                            <h3>${selectedPlace.name}</h3>
+                            <div>Address: ${selectedPlace.address}</div>
+                            <div>Location: ${selectedPlace.location}</div>
+                            <div>Ride time: ${response.routes[0].legs[0].duration.text}</div>
+                            `
+                        );
+                        info_des.open(map, marker_des)
+                    }
+                }
+            );
+        });
+    
+});
+
+
+
 }
 
 
