@@ -9,6 +9,7 @@ import sqlalchemy as sqla
 from sqlalchemy import create_engine, DateTime, text
 import functools
 import pandas as pd
+from flask import Flask, redirect, url_for, request
 
 # Database connection
 URI = "dbbikes.ci3iggfwlke6.eu-west-1.rds.amazonaws.com"
@@ -105,6 +106,17 @@ def get_weather():
             return jsonify(row._asdict())
         else:
             return "No weather data available", 404
+@app.route('/showPred/<int:predNum>')
+def showPred(predNum):
+    showString = 'The predicted number of the available bikes is '
+    showString += str(predNum)
+    showString += '.'
+    return showString
+    #return 'The predicted unmber of the available bikes is %d' % predNum
 
+@app.route('/predFun', methods=['POST'])
+def predFun():
+    user=request.form['day']
+    return redirect(url_for('showPred',predNum=15))
 if __name__ == "__main__":
     app.run(debug=True)
