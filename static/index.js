@@ -28,6 +28,7 @@
     var btn2 = document.querySelector('.btn2');
     var realTimeDiv = document.querySelector('.search_real_time');
     var predictionDiv = document.querySelector('.search_prediction');
+    var station_choose;
 
     btn1.addEventListener('click', function() {
       realTimeDiv.classList.add('show');
@@ -121,6 +122,9 @@ function addMarkers(stations) {
                 content: contentString
             
             });
+            // station_choose = station.number;
+            
+            getHour(station.number)
             // if (currentInfoWindow) {
             //     currentInfoWindow.close();
             //         }
@@ -143,6 +147,125 @@ function getStations(){
     });
 }
 
+
+function getHour(n){
+    fetch("/hour")
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("fetch response", data);
+        // const filteredData = data.find(item => item.number === 44);
+        // if(filteredData){
+        //     $("#average").text(`The hourly average bikes is ${filteredData.average_bikes_hour}`);
+        // }
+        // else{
+        //     console.log("No data found with number equal to 44");
+        // }
+        displayChart(data, n, '2023-04-09');
+        displayChart2(data, n, '2023-04-09');
+
+    });
+}
+
+
+function getChartData(data, stationNumber, day) {
+    const stationData = data.filter(
+      item => item.number === stationNumber && item.hour.startsWith(day)
+    );
+    const labels = stationData.map(item => item.hour.slice(11, 16));
+    const values = stationData.map(item => item.average_bikes_hour);
+    return { labels, values };
+  }
+
+let bikeChart = null;
+function displayChart(data, stationNumber, day) {
+    
+    const chartData = getChartData(data, stationNumber, day);
+    const chartOptions = {
+      responsive: true,
+      scales: {
+        y: {
+          title: {
+            display: true,
+            text: 'Number of average bikes'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Hour'
+          }
+        }
+      }
+    };
+    const chartConfig = {
+      type: 'bar',
+      data: {
+        labels: chartData.labels,
+        datasets: [{
+          label: `Station ${stationNumber}`,
+          data: chartData.values,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: chartOptions
+    };
+    if (bikeChart) {
+        bikeChart.destroy();
+      }
+    bikeChart = new Chart('bike-chart', chartConfig);
+  }
+
+  function getChartData2(data, stationNumber, day) {
+    const stationData2 = data.filter(
+      item => item.number === stationNumber && item.hour.startsWith(day)
+    );
+    const labels2 = stationData2.map(item => item.hour.slice(11, 16));
+    const values2 = stationData2.map(item => item.average_bike_stands_hour);
+    return { labels2, values2 };
+  }
+
+let bikeChart2 = null;
+function displayChart2(data, stationNumber, day) {
+    
+    const chartData2 = getChartData2(data, stationNumber, day);
+    const chartOptions2 = {
+      responsive: true,
+      scales: {
+        y: {
+          title: {
+            display: true,
+            text: 'Number of average bike stands'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Hour'
+          }
+        }
+      }
+    };
+    const chartConfig2 = {
+      type: 'bar',
+      data: {
+        labels: chartData2.labels2,
+        datasets: [{
+          label: `Station ${stationNumber}`,
+          data: chartData2.values2,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: chartOptions2
+    };
+    if (bikeChart2) {
+        bikeChart2.destroy();
+      }
+    bikeChart2 = new Chart('bike-chart2', chartConfig2);
+  }
 // function getOccupancy(){
 //     fetch("/occupancy/{station_id}")
 //     .then((response) => response.json())
@@ -177,7 +300,8 @@ function initMap() {
     // });
     // getOccupancy();
     getStations();
-
+    // getHour();
+    
     navigator.geolocation.getCurrentPosition(function(position){
         currentPosition = {
             lat: position.coords.latitude,
@@ -390,3 +514,13 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
 var map = null;
 window.initMap = initMap;
+
+
+
+
+
+// $(document).ready(function() {
+//     $.get('/hour', function(data) {
+//       $('#result').text('The hourly average bikes is ' + data);
+//     });
+//   });
