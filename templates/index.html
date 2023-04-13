@@ -7,6 +7,8 @@
     <title>Add Map</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
     <!-- <script src="/static/heatmap.js"></script> -->
     
@@ -33,8 +35,10 @@
     <div class="search_real_time show">
     <h1>Real-time Bike Station Search</h1>
     
-    <img src="https://api.cyclocity.fr/contracts/dublin/newsimages/045a30d2-1eca-4aa1-a815-a6bf94340a22" alt="homeimage" style="width:360px;height:280px;margin:30px;">
-    
+    <canvas id="bike-chart"></canvas>
+    <canvas id="bike-chart2"></canvas>
+    <!-- <img src="https://api.cyclocity.fr/contracts/dublin/newsimages/045a30d2-1eca-4aa1-a815-a6bf94340a22" alt="homeimage" style="width:360px;height:280px;margin:30px;"> -->
+    <div id="average"></div>
     <div id="weather-container"></div>
     <p>Type your destination</p>
     <div class="searchRealtime">
