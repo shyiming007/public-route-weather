@@ -36,7 +36,7 @@ element that contains the map
         
       }
 
-    h1 {
+    h3 {
         margin: 0px;
         
 
@@ -71,23 +71,25 @@ element that contains the map
     }
     
     
-    .searchRealtime {
+    /* .searchRealtime {
         display:flex;
         
         justify-content: center;
-      }
+      } */
     
-    .searchRealtime h4{
+    /* .searchRealtime h4{
         background-color: white;
         font-size: larger;
         color: black;
         padding: 10px 50px;
         margin: 10px;
         border: none;
-    }
+    } */
 
-    input#search_des {
+    /* input#search_des {
         margin-top: 8px;
         height: 50px; 
         width: 300px;
-      }
+      } */
+
+    
