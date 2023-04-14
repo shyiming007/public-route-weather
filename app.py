@@ -23,7 +23,6 @@ APIKEY = "43320d58946b9083c60d5f540941c6249d9884a4"
 NAME = "dublin"
 URL = "https://api.jcdecaux.com/vls/v1/stations"
 
-# engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
 
 
 
@@ -43,14 +42,6 @@ def station(station_id):
     return f'Retrieving info for Station: {station_id}'
 
 
-
-# @app.route("/stations")
-# def get_stations():
-#     engine = get_db()
-#     sql = "select * from station;"
-#     rows = engine.execute(sql).fetchall()
-#     print('#found {} stations', len(rows))
-#     return jsonify(...
 
 @app.route("/stations")
 @functools.lru_cache(maxsize=128)
