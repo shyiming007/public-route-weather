@@ -15,14 +15,16 @@ PASSWORD = "00000000"
 
 # API key and URL for weather
 APIKEY_WEATHER = "61134c8141c567f71f41c90662a798cf"
-URL_WEATHER = "https://api.openweathermap.org/data/2.5/weather"
+# URL_WEATHER = f"http://api.openweathermap.org/data/2.5/forecast?appid={APIKEY_WEATHER}"
+
+URL_WEATHER = f"https://pro.openweathermap.org/data/2.5/forecast/hourly?appid={APIKEY_WEATHER}"
 
 engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
 
 # Create a database table for weather data
 metadata = sqla.MetaData()
 
-weather = sqla.Table("weather", metadata,
+weather = sqla.Table("weather_forecast", metadata,
     sqla.Column('weather_id', sqla.Integer),
     sqla.Column('weather_main', sqla.String(256)),
     sqla.Column('weather_description', sqla.String(256)),
@@ -38,12 +40,10 @@ weather = sqla.Table("weather", metadata,
     sqla.Column('clouds_all', sqla.Integer),
     sqla.Column('dt', sqla.Integer),
     sqla.Column('sys_country', sqla.String(256)),
-    sqla.Column('sys_sunrise', sqla.Integer),
-    sqla.Column('sys_sunset', sqla.Integer),
     sqla.Column('timezone', sqla.Integer),
     sqla.Column('city_id', sqla.Integer),
     sqla.Column('city_name', sqla.String(256)),
-    sqla.Column('cod', sqla.Integer),
+    sqla.Column('rain_1h', sqla.REAL, nullable=True),
     sqla.Column('timestamp', DateTime)
 )
 
@@ -58,37 +58,36 @@ def write_weather_data_to_db():
     while True:
         try:
             now = datetime.now()
-            r = requests.get(URL_WEATHER, params={"lat": 53.344, "lon": -6.2672, "appid": APIKEY_WEATHER})
+            r = requests.get(URL_WEATHER, params={"lat": 53.344, "lon": -6.2672})
             data = json.loads(r.text)
 
-            weather_item = {
-                'weather_id': data['weather'][0]['id'],
-                'weather_main': data['weather'][0]['main'],
-                'weather_description': data['weather'][0]['description'],
-                'weather_icon': data['weather'][0]['icon'],
-                'temp': data['main']['temp'],
-                'pressure': data['main']['pressure'],
-                'humidity': data['main']['humidity'],
-                'temp_min': data['main']['temp_min'],
-                'temp_max': data['main']['temp_max'],
-                'visibility': data['visibility'],
-                'wind_speed': data['wind']['speed'],
-                'wind_deg': data['wind']['deg'],
-                'clouds_all': data['clouds']['all'],
-                'dt': data['dt'],
-                'sys_country': data['sys']['country'],
-                'sys_sunrise': data['sys']['sunrise'],
-                'sys_sunset': data['sys']['sunset'],
-                'timezone': data['timezone'],
-                'city_id': data['id'],
-                'city_name': data['name'],
-                'cod': data['cod'],
-                'timestamp': now
-            }
+            for forecast in data['list']:
+                weather_item = {
+                    'weather_id': forecast['weather'][0]['id'],
+                    'weather_main': forecast['weather'][0]['main'],
+                    'weather_description': forecast['weather'][0]['description'],
+                    'weather_icon': forecast['weather'][0]['icon'],
+                    'temp': forecast['main']['temp'],
+                    'pressure': forecast['main']['pressure'],
+                    'humidity': forecast['main']['humidity'],
+                    'temp_min': forecast['main']['temp_min'],
+                    'temp_max': forecast['main']['temp_max'],
+                    'visibility': forecast['visibility'],
+                    'wind_speed': forecast['wind']['speed'],
+                    'wind_deg': forecast['wind']['deg'],
+                    'clouds_all': forecast['clouds']['all'],
+                    'dt': forecast['dt'],
+                    'sys_country': data['city']['country'],
+                    'timezone': data['city']['timezone'],
+                    'city_id': data['city']['id'],
+                    'city_name': data['city']['name'],
+                    'rain_1h': forecast['rain']['1h'] if 'rain' in forecast and '1h' in forecast['rain'] else None,
+                    'timestamp': now
+                }
 
-            # Create a connection and execute the query
-            with engine.connect() as connection:
-                connection.execute(weather.insert(), weather_item)
+                # Create a connection and execute the query
+                with engine.connect() as connection:
+                    connection.execute(weather.insert(), weather_item)
 
             print(f"Inserted weather data at {now}")
             time.sleep(60*60*4)
@@ -96,6 +95,6 @@ def write_weather_data_to_db():
             print(f"Error: {e}")
             print(traceback.format_exc())
 
-
 if __name__ == '__main__':
     write_weather_data_to_db()
+
