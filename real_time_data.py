@@ -66,12 +66,12 @@ real_time = sqla.Table("real_time", metadata,
     sqla.Column('timestamp', DateTime)
 )
 
-try:
-    real_time.drop(engine)
-except:
-    pass
-
-metadata.create_all(engine)
+# try:
+#     real_time.drop(engine)
+# except:
+#     pass
+#
+# metadata.create_all(engine)
 
 def station_fix_keys(station):
     station['position_lat'] = station['position']['lat']

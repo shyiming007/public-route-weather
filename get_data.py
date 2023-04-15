@@ -45,13 +45,13 @@ availability = sqla.Table("availability", metadata,
     sqla.Column('timestamp', DateTime)
 )
 
-try:
-    station.drop(engine)
-    availability.drop(engine)
-except:
-    pass
-
-metadata.create_all(engine)
+# try:
+#     station.drop(engine)
+#     availability.drop(engine)
+# except:
+#     pass
+#
+# metadata.create_all(engine)
 
 def station_fix_keys(station):
     station['address'] = station['address']
