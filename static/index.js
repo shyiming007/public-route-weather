@@ -108,7 +108,7 @@ function getHour(n){
     fetch("/hour")
     .then((response) => response.json())
     .then((data) => {
-        console.log("fetch response", data['hour'][0]);
+        // console.log("fetch response", data['hour']);
  
         displayChart(data, n, '2023-04-09');
         displayChart2(data, n, '2023-04-09');
