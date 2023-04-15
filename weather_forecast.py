@@ -87,14 +87,24 @@ def write_weather_data_to_db():
 
                 # Create a connection and execute the query
                 with engine.connect() as connection:
-                    connection.execute(weather.insert(), weather_item)
+                    # Check if the record already exists for the specific timestamp
+                    select_query = weather.select().where(weather.c.dt == weather_item['dt'])
+                    result = connection.execute(select_query).fetchone()
 
-            print(f"Inserted weather data at {now}")
-            time.sleep(60*60*24)
+                    # If the record exists, update it, otherwise insert a new record
+                    if result:
+                        update_query = weather.update().where(weather.c.dt == weather_item['dt']).values(weather_item)
+                        connection.execute(update_query)
+                    else:
+                        connection.execute(weather.insert(), weather_item)
+
+            print(f"Updated weather data at {now}")
+            time.sleep(60*60)
         except Exception as e:
             print(f"Error: {e}")
             print(traceback.format_exc())
 
 if __name__ == '__main__':
     write_weather_data_to_db()
+
 
