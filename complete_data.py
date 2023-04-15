@@ -66,12 +66,6 @@ completedata = sqla.Table("completedata", metadata,
     sqla.Column('timestamp', DateTime)
 )
 
-try:
-    completedata.drop(engine)
-except:
-    pass
-
-metadata.create_all(engine)
 
 def station_fix_keys(station):
     station['position_lat'] = station['position']['lat']

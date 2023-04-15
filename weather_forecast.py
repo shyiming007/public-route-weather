@@ -47,12 +47,12 @@ weather = sqla.Table("weather_forecast", metadata,
     sqla.Column('timestamp', DateTime)
 )
 
-try:
-    weather.drop(engine)
-except:
-    pass
-
-metadata.create_all(engine)
+# try:
+#     weather.drop(engine)
+# except:
+#     pass
+#
+# metadata.create_all(engine)
 
 def write_weather_data_to_db():
     while True:
@@ -90,7 +90,7 @@ def write_weather_data_to_db():
                     connection.execute(weather.insert(), weather_item)
 
             print(f"Inserted weather data at {now}")
-            time.sleep(60*60*4)
+            time.sleep(60*60*24)
         except Exception as e:
             print(f"Error: {e}")
             print(traceback.format_exc())
