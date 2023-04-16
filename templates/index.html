@@ -4,17 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Map</title>
+    <title>Bike Station Search</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
-    <!-- <script src="/static/heatmap.js"></script> -->
     
     <!-- <script type="module" src="{{ url_for('static', filename='app.js') }}"></script> -->
 
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 </head>
 <body>
@@ -30,7 +28,7 @@
     
     <canvas id="bike-chart"></canvas>
     <canvas id="bike-chart2"></canvas>
-    <!-- <img src="https://api.cyclocity.fr/contracts/dublin/newsimages/045a30d2-1eca-4aa1-a815-a6bf94340a22" alt="homeimage" style="width:360px;height:280px;margin:30px;"> -->
+    
     <div id="average"></div>
     <div id="weather-container"></div>
     <p>Type your starting location and destination</p>
@@ -42,6 +40,7 @@
         <h4>Destination</h4>
         <input type="search" id="search_des_real">
     </div>
+    <p>Based on the route, click the appropriate yellow station to obtain more information</p>
 </div>
 
 
