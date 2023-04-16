@@ -28,7 +28,10 @@ element that contains the map
     background-color: darkorange;
     }
 
+    p {
+      margin: 0;
 
+    }
     button {
         margin-top: 10px;
         height: 50px; 
@@ -41,7 +44,11 @@ element that contains the map
         
 
     }
-
+    h5 {
+      font-size: 12px;
+      opacity: 0.4;
+      margin: 0;
+    }
 
     .search_real_time, .search_prediction {
         display: none;
@@ -71,25 +78,5 @@ element that contains the map
     }
     
     
-    /* .searchRealtime {
-        display:flex;
-        
-        justify-content: center;
-      } */
-    
-    /* .searchRealtime h4{
-        background-color: white;
-        font-size: larger;
-        color: black;
-        padding: 10px 50px;
-        margin: 10px;
-        border: none;
-    } */
-
-    /* input#search_des {
-        margin-top: 8px;
-        height: 50px; 
-        width: 300px;
-      } */
 
     
