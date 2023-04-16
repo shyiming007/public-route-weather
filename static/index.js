@@ -19,7 +19,13 @@
       realTimeDiv.classList.remove('show');
     });
     
-    
+    //add day of week to the title of chart
+    const Day_Name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const td = new Date();
+    const dayWeek = td.getDay();
+    const dayWeekName = Day_Name[dayWeek];
+    document.getElementById("day_Week").textContent = dayWeekName;
+
 function addWeather(data) {
         
         var weather_html = 'Real-time Weather: ' + data[0].weather_main;
@@ -109,9 +115,36 @@ function getHour(n){
     .then((response) => response.json())
     .then((data) => {
         // console.log("fetch response", data['hour']);
- 
-        displayChart(data, n, '2023-04-09');
-        displayChart2(data, n, '2023-04-09');
+        
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        let chartDate;
+        // make chartDate get different values from Sunday to Saturday
+        switch (dayOfWeek) {
+          case 0:
+            chartDate = '2023-04-09';
+            break;
+          case 1:
+            chartDate = '2023-04-10';
+            break;
+          case 2:
+            chartDate = '2023-04-11';
+            break;
+          case 3:
+            chartDate = '2023-04-12';
+            break;
+          case 4:
+            chartDate = '2023-04-13';
+            break;
+          case 5:
+            chartDate = '2023-04-14';
+            break;
+          case 6:
+            chartDate = '2023-04-08';
+            break;
+        }
+        displayChart(data, n, chartDate);
+        displayChart2(data, n, chartDate);
 
     });
 }
