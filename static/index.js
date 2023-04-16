@@ -260,6 +260,7 @@ let directionsService;
 let directionsRenderer;
 let info_des;
 let place_start;
+let place_start_pre;
 // Initialize and add the map
 function initMap() {
     const dublin = { lat: 53.350140, lng: -6.266155 };
@@ -372,7 +373,7 @@ function initMap() {
 
 // });
 // build a real-time route
-navigator.geolocation.getCurrentPosition(function(position) {
+// navigator.geolocation.getCurrentPosition(function(position) {
     map.setCenter(dublin);
     map.setZoom(13);
     const autocomplete_start = new google.maps.places.Autocomplete(
@@ -472,12 +473,12 @@ navigator.geolocation.getCurrentPosition(function(position) {
             );
         });
     
-});
+// });
 //build a route of predicition
-navigator.geolocation.getCurrentPosition(function(position) {
+// navigator.geolocation.getCurrentPosition(function(position) {
     map.setCenter(dublin);
     map.setZoom(13);
-    const autocomplete_start = new google.maps.places.Autocomplete(
+    const autocomplete_start_pre = new google.maps.places.Autocomplete(
         document.getElementById('search_start'), {
             bounds: {
                 east: dublin.lng + 0.001,
@@ -488,12 +489,12 @@ navigator.geolocation.getCurrentPosition(function(position) {
             strictBounds: false,
         }
     );
-    autocomplete_start.addListener('place_changed', function() {
-        place_start = autocomplete_start.getPlace();
+    autocomplete_start_pre.addListener('place_changed', function() {
+        place_start_pre = autocomplete_start_pre.getPlace();
         
 });
 
-    const autocomplete_des = new google.maps.places.Autocomplete(
+    const autocomplete_des_pre = new google.maps.places.Autocomplete(
         document.getElementById('search_des_pre'), {
             bounds: {
                 east: dublin.lng + 0.001,
@@ -507,14 +508,14 @@ navigator.geolocation.getCurrentPosition(function(position) {
     );
 
 
-        autocomplete_des.addListener('place_changed', function() {
-            const place_des = autocomplete_des.getPlace();
+        autocomplete_des_pre.addListener('place_changed', function() {
+            const place_des_pre = autocomplete_des_pre.getPlace();
 
             selectedPlace = {
-                location: place_des.geometry.location,
-                name: place_des.name,
-                address: place_des.formatted_address,
-                placeId: place_des.place_id,
+                location: place_des_pre.geometry.location,
+                name: place_des_pre.name,
+                address: place_des_pre.formatted_address,
+                placeId: place_des_pre.place_id,
             };
 
             map.setCenter(selectedPlace.location);
@@ -544,8 +545,8 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
             directionsService.route({
                     origin: new google.maps.LatLng(
-                        place_start.geometry.location.lat(),
-                        place_start.geometry.location.lng()
+                        place_start_pre.geometry.location.lat(),
+                        place_start_pre.geometry.location.lng()
                     ),
                     destination: {
                         placeId: selectedPlace.placeId,
@@ -574,7 +575,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
             );
         });
     
-});
+// });
 
 
 
