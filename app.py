@@ -115,4 +115,5 @@ def predFun():
     user=request.form['day']
     return redirect(url_for('showPred',predNum=15))
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
