@@ -121,7 +121,7 @@ function getChartData(data, stationNumber, day) {
     const stationData = data.filter(
       item => item.number === stationNumber && item.hour.startsWith(day)
     );
-    const labels = stationData.map(item => item.hour.slice(11, 16));
+    const labels = stationData.map(item => item.hour.slice(11, 13));
     const values = stationData.map(item => item.average_bikes_hour);
     return { labels, values };
   }
@@ -152,9 +152,9 @@ function displayChart(data, stationNumber, day) {
       data: {
         labels: chartData.labels,
         datasets: [{
-          label: `Station ${stationNumber}`,
+          label: `Average Available Bikes: Station ${stationNumber}`,
           data: chartData.values,
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: 'rgba(255, 99, 132, 0.7)',
           borderColor: 'rgba(255, 99, 132, 1)',
           borderWidth: 1
         }]
@@ -171,7 +171,7 @@ function displayChart(data, stationNumber, day) {
     const stationData2 = data.filter(
       item => item.number === stationNumber && item.hour.startsWith(day)
     );
-    const labels2 = stationData2.map(item => item.hour.slice(11, 16));
+    const labels2 = stationData2.map(item => item.hour.slice(11, 13));
     const values2 = stationData2.map(item => item.average_bike_stands_hour);
     return { labels2, values2 };
   }
@@ -202,9 +202,9 @@ function displayChart2(data, stationNumber, day) {
       data: {
         labels: chartData2.labels2,
         datasets: [{
-          label: `Station ${stationNumber}`,
+          label: `Average Available Stands: Station ${stationNumber}`,
           data: chartData2.values2,
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          backgroundColor: 'rgba(54, 162, 235, 0.7)',
           borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 1
         }]
