@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, redirect, url_for, request
+from flask_cors import CORS
 import config
 import requests
 import json
@@ -23,7 +24,8 @@ APIKEY = "43320d58946b9083c60d5f540941c6249d9884a4"
 NAME = "dublin"
 URL = "https://api.jcdecaux.com/vls/v1/stations"
 
-
+app = Flask(__name__)
+CORS(app)
 
 
 
@@ -115,5 +117,4 @@ def predFun():
     user=request.form['day']
     return redirect(url_for('showPred',predNum=15))
 if __name__ == "__main__":
-    # app.run(debug=True)
     app.run(host='0.0.0.0', debug=True)
