@@ -90,7 +90,8 @@ import pickle
 
 feature_order = list(X_train.columns) # save the arrangement of  features
 models = {'lr_bikes': lr_bikes, 'lr_stands': lr_stands,  'scaler':scaler, 'feature_order': feature_order}
-file_dir = 'D:\PythonProjects\DublinBike'
+# file_dir = '/Users/Linky/Documents/GitHub/Comp30830group'
+file_dir = '/home/ubuntu/Comp30830group'
 
 file_path = os.path.join(file_dir, 'models.pkl')
 with open(file_path, 'wb') as f:
