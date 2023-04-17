@@ -26,6 +26,9 @@
     const dayWeekName = Day_Name[dayWeek];
     document.getElementById("day_Week").textContent = dayWeekName;
 
+
+
+
 function addWeather(data) {
         
         var weather_html = 'Real-time Weather: ' + data[0].weather_main;
