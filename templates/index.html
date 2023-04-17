@@ -52,22 +52,12 @@
         
         <h4>Destination</h4>
         <input type="search" id="search_des_pre">
-        <form action="http://127.0.0.1:5000/predFun" method="post">
-            <p>Weekday</p>
-            <p>
-                <select name="day">
-                    <option value="Sunday">Sunday</option>
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                    <option value="Friday">Friday</option>
-                    <option value="Saturday">Saturday</option>
-                </select>
-            </p>
-            <p><input type="submit" value="submit" /></p>
-        </form>
-        
+        <button class="btn3" onclick="redirectToFactors()">Choose Your Time and Station to Predict</button>
+        <script>
+            function redirectToFactors() {
+              window.location.href = "/factors";
+            }
+            </script>
     
     </div>
 
