@@ -17,14 +17,14 @@ app = Flask(__name__)
 
 
 # The configuration of AWS RDS MySQL
-user = 'admin'
-password = '00000000'
-host = 'dbbikes.ci3iggfwlke6.eu-west-1.rds.amazonaws.com'
-port = 3306
-database = 'dbbikes'
+URI = "dbbikes.ci3iggfwlke6.eu-west-1.rds.amazonaws.com"
+PORT = "3306"
+DB = "dbbikes"
+USER = "admin"
+PASSWORD = "00000000"
 # create the link to Database
 global engine
-engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}:{port}/{database}')
+engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
 
 
 
@@ -88,7 +88,7 @@ def predFun():
     startNum = str(request.form['start'])
     endNum = str(request.form['end'])
     # Load the model already trained as well as the scaler and feature orde
-    file_dir = 'D:\PythonProjects\DublinBike'
+    file_dir = '/Users/Linky/Documents/GitHub/Comp30830group'
     file_path = os.path.join(file_dir, 'models.pkl')
     with open(file_path, 'rb') as f:
         models = pickle.load(f)
