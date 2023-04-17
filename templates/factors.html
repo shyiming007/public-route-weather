@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Prediction Page</title>
+    <meta name="description" content="这是我的个人网页">
+    <meta name="keywords" content="个人网页, HTML, CSS">
+</head>
+
+<body>
+    <!-- <form action="http://127.0.0.1:5000/predFun" method="post"> -->
+    <form action="http://52.50.141.246:5000/predFun" method="post">
+        <p>Please choose the date and time </p>
+        <p>
+            <select name="dt">
+                {{ page_options | safe }} 
+            </select>
+        </p>
+        <p>Please choose the Starting Station Number</p>
+        <p>
+            <select name="start">
+                {{ page_stations | safe }} 
+            </select>
+        </p>
+        <p>Please choose the Ending Station Number</p>
+        <p>
+            <select name="end">
+                {{ page_stations | safe }} 
+            </select>
+        </p>
+        <p><input type="submit" value="submit" /></p>
+    </form>
+</body>
+
+</html>
