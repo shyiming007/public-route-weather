@@ -218,4 +218,4 @@ def predFun():
     return redirect(url_for('showPred',pred_bikes=y_pred_bikes,pred_stands=y_pred_stands))
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80,debug=True)
+    app.run(host='0.0.0.0', port=8080,debug=True)
