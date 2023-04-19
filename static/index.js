@@ -152,7 +152,7 @@ function getHour(n){
     });
 }
 
-
+// chart part
 function getChartData(data, stationNumber, day) {
     const stationData = data.filter(
       item => item.number === stationNumber && item.hour.startsWith(day)
@@ -190,8 +190,8 @@ function displayChart(data, stationNumber, day) {
         datasets: [{
           label: `Average Available Bikes: Station ${stationNumber}`,
           data: chartData.values,
-          backgroundColor: 'rgba(255, 99, 132, 0.7)',
-          borderColor: 'rgba(255, 99, 132, 1)',
+          backgroundColor: 'rgba(255, 255, 0, 0.7)',
+          borderColor: 'rgba(255, 255, 0, 1)',
           borderWidth: 1
         }]
       },
@@ -275,108 +275,6 @@ function initMap() {
 
     getStations();
 
-    
-//     navigator.geolocation.getCurrentPosition(function(position){
-//         currentPosition = {
-//             lat: position.coords.latitude,
-//             lng: position.coords.longitude,
-//         }
-        
-//         map.setCenter(currentPosition);
-//         map.setZoom(13);
-//         const autocomplete = new google.maps.places.Autocomplete(
-//             document.getElementById('search_des'),
-//             {
-            
-//             bounds:{
-//                 east: currentPosition.lng + 0.001,
-//                 west: currentPosition.lng - 0.001,
-//                 south: currentPosition.lat - 0.001,
-//                 north: currentPosition.lat + 0.001,
-            
-//             },
-//             strictBounds: false,
-
-//             }
-//         )
-//         autocomplete.addListener('place_changed', function(){
-//         const place = autocomplete.getPlace();
-        
-//         selectedPlace = {
-//             location: place.geometry.location,
-//             name: place.name,
-//             address: place.formatted_address,
-//             placeId: place.place_id,
-//         };
-        
-//         map.setCenter(selectedPlace.location);
-
-//         if (!marker_des){
-//             marker_des = new google.maps.Marker({
-//                 map: map,
-//             });
-//         }
-//         // // Create a yellow icon
-//         // var yellowIcon = {
-//         //     url: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-//         //         };
-  
-//         // // Set the icon to the yellow icon
-//         // marker_des.setIcon(yellowIcon);
-//         marker_des.setPosition(selectedPlace.location);
-        
-        
-//         if (!directionsService){
-//             directionsService = new google.maps.DirectionsService();
-//         }
-
-//         if (!directionsRenderer){
-//             directionsRenderer = new google.maps.DirectionsRenderer({
-//             map:map,
-//             polylineOptions: {
-//                 strokeColor: '#800080' 
-//               }
-//         });
-//         }
-
-//         directionsRenderer.set('directions',null)
-    
-//         directionsService.route({
-//             origin:new google.maps.LatLng(
-//                 currentPosition.lat,
-//                 currentPosition.lng
-//             ),
-//             destination:{
-//                 placeId: selectedPlace.placeId,
-//             },
-//             travelMode: 'BICYCLING',
-//         },
-//         function(response, status){
-//             if (status == 'OK'){
-//                 directionsRenderer.setDirections(response);
-
-//                 if(!info_des){
-//                     info_des = new google.maps.InfoWindow();
-
-//                 }
-//                 info_des.setContent(
-//                     `
-//                     <h3>${selectedPlace.name}</h3>
-//                     <div>Address: ${selectedPlace.address}</div>
-//                     <div>Location: ${selectedPlace.location}</div>
-//                     <div>Ride time: ${response.routes[0].legs[0].duration.text}</div>
-//                     `
-//                 );
-//                 info_des.open(map,marker_des)
-//             }
-//         }
-//         );
-
-//     });
-
-// });
-// build a real-time route
-// navigator.geolocation.getCurrentPosition(function(position) {
     map.setCenter(dublin);
     map.setZoom(13);
     const autocomplete_start = new google.maps.places.Autocomplete(
