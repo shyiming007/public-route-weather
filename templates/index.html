@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <title>Bike Station Search</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -12,7 +13,7 @@
     <script type="module" src="{{ url_for('static', filename='index.js') }}"></script>
     
     <!-- <script type="module" src="{{ url_for('static', filename='app.js') }}"></script> -->
-
+    
 
 </head>
 <body>
@@ -20,14 +21,15 @@
 <div id="map"></div>
 
 <div id="search">
+    
     <button class="btn1">Real-time</button>
     <button class="btn2">Prediction</button>
     
     <div class="search_real_time show">
     <h3>Real-time Bike Station Search</h3>
     <h5><span id="day_Week"></span></h5>
-    <canvas id="bike-chart"></canvas>
-    <canvas id="bike-chart2"></canvas>
+    <canvas id="bike-chart" height="100"></canvas>
+    <canvas id="bike-chart2" height="100"></canvas>
     
     <div id="average"></div>
     <div id="weather-container"></div>
@@ -40,7 +42,7 @@
         <h4>Destination</h4>
         <input type="search" id="search_des_real">
     </div>
-    <p>Based on the route, click the appropriate yellow station to obtain more information</p>
+    <p>Based on the route, click the appropriate yellow station to obtain chart information</p>
 </div>
 
 
@@ -52,11 +54,14 @@
         
         <h4>Destination</h4>
         <input type="search" id="search_des_pre">
-        <button class="btn3" onclick="redirectToFactors()">Choose Your Time and Station to Predict</button>
+        <p><br>Based on the route</p>
+        <iframe id="myframe" src="{{ url_for('factors') }}" width="95%" height="300px"></iframe>
+        <button class="btn3" onclick="reloadFrame()">Reset</button>
         <script>
-            function redirectToFactors() {
-              window.location.href = "/factors";
-            }
+            function reloadFrame() {
+            var iframe = document.getElementById("myframe");
+            iframe.src = iframe.src;
+                }
             </script>
     
     </div>
