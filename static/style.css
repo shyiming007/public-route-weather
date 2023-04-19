@@ -3,7 +3,7 @@ element that contains the map
 */
 #map {
     height: 100%;
-    width: 70%;
+    width: 60%;
     float: left;
     }
     html, body {
@@ -17,23 +17,26 @@ element that contains the map
     }
 
 #station_availability ul {
-    color: orange;
+    color: #FFA07A;
     }
 
 #search
     {
     height: 100%;
-    width: 30%;
+    width: 40%;
     float: right;
-    background-color: darkorange;
+    background-color: thistle;
     }
-
+    
     p {
       margin: 0;
 
     }
     button {
         margin-top: 10px;
+        margin-left: 45px;
+        margin-right: 10px;
+
         height: 50px; 
         width: 200px;
         
@@ -53,7 +56,25 @@ element that contains the map
     .search_real_time, .search_prediction {
         display: none;
       }
-  
+    .search_prediction #myframe {
+      border: none;
+      
+      margin: 35px 5px;
+      max-height: 80vh;
+
+    }
+    .search_prediction .btn3 {
+        
+        margin-left: 200px;
+        margin-right: 10px;
+
+        height: 50px; 
+        width: 150px;
+
+    }
+    
+
+
     .show {
         display: block;
       }
@@ -76,6 +97,7 @@ element that contains the map
     body p{
         text-align: center;
     }
+    
     
     
 
