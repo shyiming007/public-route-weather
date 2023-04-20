@@ -49,13 +49,9 @@ def main():
 
 
 
-@app.route('/station/<int:station_id>')
-def station(station_id):
-# show the station with the given id, the id is an integer
-    return f'Retrieving info for Station: {station_id}'
 
 
-
+# get data from real_time
 @app.route("/stations")
 @functools.lru_cache(maxsize=128)
 def get_stations():
@@ -71,33 +67,9 @@ def get_stations():
         print(traceback.format_exc())
         return "error in get_stations", 404
 
-@app.route("/occupancy/<int:station_id>")
-def get_occupancy(station_id):
 
-    engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
-    with engine.connect() as conn:
-        query = text("""select * from availability where number = :number""")
-        df = pd.read_sql_query(query, conn, params={"number":station_id})
-        df['last_update_date'] = pd.to_datetime(df.last_update, unit='s')
-        df.set_index('last_update_date', inplace=True)
-        res = df['available_bike_stands'].resample('1d').mean()
-        #res['dt'] = df.index
-        print(res)
-        
-        return jsonify(data=json.dumps(list(zip(map(lambda x: x.isoformat(), res.index), res.values))))
-        
-# Added route to get the latest weather data
-@app.route('/weather')
-def get_weather():
-    engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
-    with engine.connect() as conn:
-        sql = "SELECT * FROM weather ORDER BY timestamp DESC LIMIT 1;"
-        row = conn.execute(text(sql)).fetchone()
-        if row:
-            return jsonify(row._asdict())
-        else:
-            return "No weather data available", 404
-
+    
+# get data of stations based on different hours
 @app.route('/hour')
 def get_hour():
     engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{URI}:{PORT}/{DB}", echo=True, connect_args={'autocommit': True})
@@ -115,7 +87,7 @@ def get_hour():
 
 
 
-
+# get the result of prediction
 @app.route('/showPred/<int:pred_bikes>/<int:pred_stands>')
 def showPred(pred_bikes,pred_stands):
     showString = 'The predicted number of the available bikes at starting station is '
