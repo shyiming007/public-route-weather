@@ -9,6 +9,8 @@
     var predictionDiv = document.querySelector('.search_prediction');
     var station_choose;
 
+
+    // add butttons to change the page
     btn1.addEventListener('click', function() {
       realTimeDiv.classList.add('show');
       predictionDiv.classList.remove('show');
@@ -28,7 +30,7 @@
 
 
 
-
+// function for adding weather information
 function addWeather(data) {
         
         var weather_html = 'Real-time Weather: ' + data[0].weather_main;
@@ -40,7 +42,7 @@ function addWeather(data) {
 
 
 
-
+// function for adding markers of stations
 function addMarkers(stations) {
     stations.forEach(station => {
         
@@ -89,10 +91,10 @@ function addMarkers(stations) {
                 content: contentString
             
             });
-
             
+            // get stations information based on different hours
             getHour(station.number)
-
+            
             infowindow.open(map, marker);
 
             
@@ -101,7 +103,7 @@ function addMarkers(stations) {
 }
 
 
-
+// get data of stations
 function getStations(){
     fetch("/stations")
     .then((response) => response.json())
@@ -112,7 +114,7 @@ function getStations(){
     });
 }
 
-
+// get data of stations based on different hours
 function getHour(n){
     fetch("/hour")
     .then((response) => response.json())
@@ -146,6 +148,7 @@ function getHour(n){
             chartDate = '2023-04-08';
             break;
         }
+        
         displayChart(data, n, chartDate);
         displayChart2(data, n, chartDate);
 
@@ -277,6 +280,10 @@ function initMap() {
 
     map.setCenter(dublin);
     map.setZoom(13);
+
+
+
+// build a route for the real-time part
     const autocomplete_start = new google.maps.places.Autocomplete(
         document.getElementById('search_start_real'), {
             bounds: {
@@ -375,8 +382,8 @@ function initMap() {
         });
     
 // });
-//build a route of predicition
-// navigator.geolocation.getCurrentPosition(function(position) {
+// build a route of predicition
+
     map.setCenter(dublin);
     map.setZoom(13);
     const autocomplete_start_pre = new google.maps.places.Autocomplete(
