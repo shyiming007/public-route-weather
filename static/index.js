@@ -33,7 +33,7 @@
 // function for adding weather information
 function addWeather(data) {
         
-        var weather_html = 'Real-time Weather: ' + data[0].weather_main;
+        var weather_html = 'Real-time Weather: ' + data[0].weather_description;
         
         var container = document.getElementById('weather-container');
         container.innerHTML = weather_html;
